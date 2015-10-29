@@ -13,7 +13,7 @@ var Asteroids;
     Asteroids.MovingObject.call(this, options);
   };
 
-  Ship.RADIUS = 37.5;
+  Ship.RADIUS = 25;
   Ship.COLOR = "red";
 
   Asteroids.Util.inherits(Ship, Asteroids.MovingObject);
@@ -21,6 +21,7 @@ var Asteroids;
   Ship.prototype.relocate = function () {
     this.pos = this.game.randomPosition();
     this.vel = [0, 0];
+    this.game.lives -= 1;
   };
 
   Ship.prototype.fireBullet = function () {
@@ -52,13 +53,13 @@ var Asteroids;
   };
 
   Ship.prototype.draw = function (context) {
-    var ship = new Image(Ship.RADIUS*2, Ship.RADIUS*2);
+    var ship = new Image(74, 74);
     var radians = this.vel[0] < 0 ? Math.PI - (Math.atan(-this.vel[1]/this.vel[0])) : Math.atan(this.vel[1]/this.vel[0]);
-    ship.src = "./lib/ship.png";
+    ship.src = "lib/ship.png";
     context.save();
     context.translate(this.pos[0], this.pos[1]);
     context.rotate(radians);
-    context.drawImage(ship, -Ship.RADIUS, -Ship.RADIUS);
+    context.drawImage(ship, -37, -37);
     context.restore();
   };
 })(this);
